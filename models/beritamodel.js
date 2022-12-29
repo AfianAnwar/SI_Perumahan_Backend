@@ -22,13 +22,10 @@ const berita = db.define('berita', {
             notEmpty: true,
         }
     },
-    gambar:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-            notEmpty: true,
-        }
-    }
+    gambar: DataTypes.STRING,
+    url: DataTypes.STRING
+},{
+    freezeTableName: true
 });
 
 module.exports = berita

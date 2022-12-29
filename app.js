@@ -5,15 +5,17 @@ const { json } = require('sequelize');
 const mysql = require('mysql');
 const app = express();
 const cors = require('cors')
-const port = 3069;
+const multer = require('multer')
 const cookieParser = require('cookie-parser');
+
+const port = 3069;
 
 var admin = '';
 
 const dotenv = require('dotenv');
 const passport = require('passport');
 const db = require('./config/database');
-const pembayaranmodel = require('./models/pembayaranmodel');
+
 
 try {
 	db.authenticate();
@@ -29,15 +31,17 @@ const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password: '',
-	database: 'perumahan'
+	database: 'r_perumahan'
 });
 
 app.use(cookieParser());
 app.use(cors({
 	origin: 'http://localhost:3000',
-	credentials : true
+	credentials: true
 }))
-app.use('/static', express.static("public"));
+
+app.use(express.static("public"));
+
 app.use(express.json());
 
 app.use('/berita', require('./routes/berita'));
@@ -61,8 +65,6 @@ app.post('/auth', function (request, response) {
 	response.end();
 
 });
-
-
 
 app.get('/alogin', (req, res) => {
 	connection.query('SELECT * FROM admin', function (err, results) {
